@@ -20,7 +20,7 @@
 
 #pragma     once
 
-#include    "BaseballScore/Document/DocumentFile.h"
+//  #include    "BaseballScore/Document/DocumentFile.h"
 
 #include    "Score4Types.h"
 #include    "ScoreDocument.h"
@@ -210,9 +210,11 @@ public:
 //
 private:
 
+#if 0
     typedef     Score4Core::Document::DocumentFile      WrapTarget;
 
     WrapTarget  *       m_ptrObj;
+#endif
 
 };
 

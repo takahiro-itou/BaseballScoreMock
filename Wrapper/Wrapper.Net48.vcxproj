@@ -118,11 +118,6 @@
   <ItemGroup>
     <Image Include="..\Wrapper\app.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.vcxproj">
-      <Project>{64d47941-c76a-4448-bae1-62de0b4c8ac5}</Project>
-    </ProjectReference>
-  </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

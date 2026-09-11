@@ -45,7 +45,6 @@ namespace  Document  {
 //
 
 DocumentFile::DocumentFile()
-    : m_ptrObj { new WrapTarget() }
 {
 }
 
@@ -66,10 +65,6 @@ DocumentFile::~DocumentFile()
 
 DocumentFile::!DocumentFile()
 {
-    if ( this->m_ptrObj ) {
-        delete  this->m_ptrObj;
-        this->m_ptrObj  = nullptr;
-    }
 }
 
 //========================================================================
@@ -106,12 +101,7 @@ DocumentFile::computeImageSize(
         ScoreDocument^      objDoc,
         BlockSizeInfo^      bsInfo)
 {
-    WrapTarget::BlockSizeInfo       natvBsInfo;
-    FileLength  retVal  = WrapTarget::computeImageSize(
-                                objDoc->toNativeInstance(),
-                                &natvBsInfo);
-    bsInfo->bsFileHead  = natvBsInfo.bsFileHead;
-    return ( retVal );
+    return ( 0 );
 }
 
 //----------------------------------------------------------------
@@ -123,11 +113,7 @@ DocumentFile::readFromBinaryFile(
         System::String^     fileName,
         ScoreDocument^%     ptrDoc)
 {
-    const   Score4Core::ErrCode
-        retVal = WrapTarget::readFromBinaryFile(
-                    marshal_as<std::string>(fileName),
-                    ptrDoc->toNativePointer());
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //----------------------------------------------------------------
@@ -139,12 +125,7 @@ DocumentFile::readFromTextFile(
         System::String^     fileName,
         ScoreDocument^%     ptrDoc)
 {
-    WrapTarget  tmpWrap = WrapTarget();
-    const   Score4Core::ErrCode
-        retVal = tmpWrap.readFromTextFile(
-                    marshal_as<std::string>(fileName),
-                    ptrDoc->toNativePointer());
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //----------------------------------------------------------------
@@ -156,11 +137,7 @@ DocumentFile::saveToBinaryFile(
         ScoreDocument^      objDoc,
         System::String^     fileName)
 {
-    const   Score4Core::ErrCode
-        retVal = WrapTarget::saveToBinaryFile(
-                    objDoc->toNativeInstance(),
-                    marshal_as<std::string>(fileName));
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //----------------------------------------------------------------
@@ -172,11 +149,7 @@ DocumentFile::saveToTextFile(
         ScoreDocument^      objDoc,
         System::String^     fileName)
 {
-    const   Score4Core::ErrCode
-        retVal = WrapTarget::saveToTextFile(
-                    objDoc->toNativeInstance(),
-                    marshal_as<std::string>(fileName));
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //========================================================================

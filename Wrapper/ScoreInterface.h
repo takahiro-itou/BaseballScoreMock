@@ -20,7 +20,7 @@
 
 #pragma     once
 
-#include    "BaseballScore/Document/ScoreDocument.h"
+//  #include    "BaseballScore/Document/ScoreDocument.h"
 
 #include    "Score4Types.h"
 
@@ -243,10 +243,8 @@ typedef     cli::array<CountedScores^, 1>   CountedScoreList;
 
 public enum  class  Consts
 {
-    MAGIC_NO_PROBABILITY_WONS
-        = Score4Core::Common::MAGIC_NO_PROBABILITY_WONS,
-    MAGICLIST_NO_DATA_ENTRY
-        = Score4Core::Common::MAGICLIST_NO_DATA_ENTRY
+    MAGIC_NO_PROBABILITY_WONS,
+    MAGICLIST_NO_DATA_ENTRY,
 };
 
 //========================================================================
@@ -254,6 +252,7 @@ public enum  class  Consts
 //    Support Functions.
 //
 
+#if 0
 //----------------------------------------------------------------
 /**   アンマネージ型をマネージ型に変換する。
 **
@@ -281,6 +280,7 @@ ErrCode
 copyToManageType(
         const  Score4Core::Common::CountedScores  & csSrc,
         Score4Wrapper::Common::CountedScores      ^ csTrg);
+#endif
 
 
 }   //  End of namespace  Score4Wrapper
