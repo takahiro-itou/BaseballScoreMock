@@ -20,7 +20,7 @@
 
 #pragma     once
 
-#include    "BaseballScore/Common/Score4Types.h"
+//  #include    "BaseballScore/Common/Score4Types.h"
 
 
 namespace  Score4Wrapper  {

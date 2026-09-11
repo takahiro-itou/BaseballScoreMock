@@ -31,6 +31,7 @@ namespace  Common  {
 }   //  End of namespace  Common
 
 
+#if 0
 //----------------------------------------------------------------
 //    アンマネージ型をマネージ型に変換する。
 //
@@ -113,5 +114,7 @@ copyToManageType(
 
     return ( ErrCode::ERR_SUCCESS );
 }
+
+#endif
 
 }   //  End of namespace  Score4Wrapper
