@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ImportGroup Label="PropertySheets">
+  </ImportGroup>
+
+  <PropertyGroup Label="UserMacros">
+    <BASEBALLSCORE_REPO_ROOT_DIR>..</BASEBALLSCORE_REPO_ROOT_DIR>
+    <BASEBALLSCORE_CORE_TOP_DIR>..\Core</BASEBALLSCORE_CORE_TOP_DIR>
+    <BASEBALLSCORE_CORE_INC_DIR>..\Core\Include</BASEBALLSCORE_CORE_INC_DIR>
+    <BASEBALLSCORE_PPDEFS>SCORE4_USE_PRE_CONFIGURED_MSVC</BASEBALLSCORE_PPDEFS>
+  </PropertyGroup>
+
+  <PropertyGroup>
+   <_PropertySheetDisplayName>Sample Property Sheet</_PropertySheetDisplayName>
+  </PropertyGroup>
+
+</Project>
