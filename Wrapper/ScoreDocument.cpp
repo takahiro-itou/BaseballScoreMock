@@ -24,7 +24,7 @@
 
 #include    "ConvertManageType.h"
 
-#include    "BaseballScore/Common/DateTimeFormat.h"
+//  #include    "BaseballScore/Common/DateTimeFormat.h"
 
 
 #include    <msclr/marshal_cppstd.h>
@@ -41,11 +41,8 @@ inline  System::DateTime^
 getDateTime(
         const   DateSerial  dsVal)
 {
-    DateTimeFormat::TDateTime   dtBuf;
-    DateTimeFormat::getDateTimeFromSerial(dsVal, &dtBuf);
-
     System::DateTime^   dtWork  = gcnew  System::DateTime(
-            dtBuf.year,  dtBuf.month,  dtBuf.day);
+            2016, 3, 1);
     return ( dtWork );
 }
 
@@ -53,8 +50,7 @@ inline  DateSerial
 getDateSerial(
         System::DateTime^   dtVal)
 {
-    return ( DateTimeFormat::getSerialFromDate(
-                     dtVal->Year, dtVal->Month, dtVal->Day) );
+    return ( 42430 );
 }
 
 }   //  End of (Unnamed) namespace
@@ -75,9 +71,7 @@ getDateSerial(
 //
 
 ScoreDocument::ScoreDocument()
-    : m_ptrObj { new WrapTarget() },
-      m_ptrBuf { new WrapCountedScoreList() },
-      m_trgDate(0)
+    : m_trgDate(0)
 {
 }
 
@@ -98,14 +92,6 @@ ScoreDocument::~ScoreDocument()
 
 ScoreDocument::!ScoreDocument()
 {
-    if ( this->m_ptrObj ) {
-        delete  this->m_ptrObj;
-        this->m_ptrObj  = nullptr;
-    }
-    if ( this->m_ptrBuf ) {
-        delete  this->m_ptrBuf;
-        this->m_ptrBuf  = nullptr;
-    }
 }
 
 //========================================================================
@@ -141,20 +127,7 @@ ErrCode
 ScoreDocument::appendGameRecord(
         GameResult^     gameRecord)
 {
-    Score4Core::Common::GameResult  umRecord;
-    Score4Core::ErrCode             retVal;
-
-    const   RecordFlag  flagRec = gameRecord->eGameFlags;
-
-    umRecord.eGameFlags     = static_cast<Score4Core::RecordFlag>(flagRec);
-    umRecord.recordDate     = getDateSerial(gameRecord->recordDate);
-    umRecord.visitorTeam    = gameRecord->awayTeam;
-    umRecord.homeTeam       = gameRecord->homeTeam;
-    umRecord.visitorScore   = gameRecord->awayScore;
-    umRecord.homeScore      = gameRecord->homeScore;
-
-    retVal  = this->m_ptrObj->appendGameRecord(umRecord);
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //----------------------------------------------------------------
@@ -164,8 +137,7 @@ ScoreDocument::appendGameRecord(
 System::DateTime^
 ScoreDocument::checkLastDate()
 {
-    DateSerial  retDate = this->m_ptrObj->checkLastDate();
-    return ( getDateTime(retDate) );
+    return ( getDateTime(42430) );
 }
 
 //----------------------------------------------------------------
@@ -175,7 +147,7 @@ ScoreDocument::checkLastDate()
 ErrCode
 ScoreDocument::clearDocument()
 {
-    return ( static_cast<ErrCode>(this->m_ptrObj->clearDocument()) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //----------------------------------------------------------------
@@ -187,12 +159,7 @@ ScoreDocument::computeRankOrder(
         LeagueIndex         idxLeague,
         array<TeamIndex>^   bufIndex)
 {
-    std::vector<TeamIndex>  bufNatv;
-    const   TeamIndex   retVal  = this->m_ptrObj->computeRankOrder(
-            *(this->m_ptrBuf), idxLeague, bufNatv);
-    copyVectorToManage(bufNatv, bufIndex);
-
-    return ( retVal );
+    return ( 6 );
 }
 
 //----------------------------------------------------------------
@@ -203,7 +170,6 @@ ScoreDocument^
 ScoreDocument::copyFrom(
         ScoreDocument^  src)
 {
-    this->m_ptrObj->copyFrom(*(src->m_ptrObj));
     return ( this );
 }
 
@@ -215,31 +181,18 @@ ErrCode
 ScoreDocument::countScores(
         System::DateTime^   trgLastDate)
 {
-    Score4Core::ErrCode  retVal;
-
     DateSerial  dsLast  = getDateSerial(trgLastDate);
-
-    this->m_ptrBuf->clear();
-    this->m_ptrBuf->resize(getNumTeams());
-
-    retVal  = this->m_ptrObj->countScores(dsLast, *(this->m_ptrBuf));
 
     const  LeagueIndex  numLeagues  = getNumLeagues();
     const  TeamIndex    numTeams    = getNumTeams();
 
-    for ( LeagueIndex i = 0; i < numLeagues; ++ i ) {
-        this->m_ptrObj->computeCurrentRank(i, *(this->m_ptrBuf));
-    }
-    this->m_ptrObj->computeRankRange(*(this->m_ptrBuf));
-
     this->m_csiBuf  = gcnew cli::array<CountedScores^, 1>(numTeams);
     for ( TeamIndex i = 0; i < numTeams; ++ i ) {
         this->m_csiBuf[i]   = gcnew  CountedScores;
-        copyToManageType(this->m_ptrBuf->at(i), this->m_csiBuf[i]);
     }
 
     this->m_trgDate = dsLast;
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //----------------------------------------------------------------
@@ -253,17 +206,7 @@ ScoreDocument::findGameRecords(
         const   TeamIndex           visitorTeam,
         Common::RecordIndexList^%   bufRecord)
 {
-    DateSerial  targetDate  = getDateSerial(gameDate);
-    RecordIndex numRecords;
-
-    WrapTarget::RecordIndexList umBuffer;
-    numRecords  = this->m_ptrObj->findGameRecords(
-                        targetDate, homeTeam, visitorTeam, umBuffer);
-
-    System::Array::Resize(bufRecord, numRecords);
-    copyVectorToManage(umBuffer, bufRecord);
-
-    return ( numRecords );
+    return ( 0 );
 }
 
 //----------------------------------------------------------------
@@ -275,14 +218,7 @@ ScoreDocument::makeWinningRateTable(
         const  LeagueIndex  leagueIndex,
         WinningRateTable^%  rateTable)
 {
-    WrapTarget::WinningRateTable    workRate;
-
-    const   GamesCount
-    retVal  = this->m_ptrObj->makeWinningRateTable(
-                    *m_ptrBuf, leagueIndex, workRate);
-    rateTable = toManageFromTable(workRate);
-
-    return ( retVal );
+    return ( 20 );
 }
 
 //----------------------------------------------------------------
@@ -292,10 +228,7 @@ ScoreDocument::makeWinningRateTable(
 ErrCode
 ScoreDocument::optimizeGameRecords()
 {
-    Score4Core::ErrCode  retVal;
-
-    retVal  = this->m_ptrObj->optimizeGameRecords();
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //----------------------------------------------------------------
@@ -307,14 +240,7 @@ ScoreDocument::updateLastDate(
         System::Boolean     flgRecordOnly,
         System::DateTime^   lastDate)
 {
-    Score4Core::ErrCode  retVal;
-    const   DateSerial  dsLast  = getDateSerial(lastDate);
-    const   Boolean     blnFlag = (flgRecordOnly
-                                   ? Score4Core::BOOL_TRUE
-                                   : Score4Core::BOOL_FALSE);
-
-    retVal  = this->m_ptrObj->updateLastDate(blnFlag, dsLast);
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
 
 //========================================================================
@@ -331,7 +257,6 @@ ScoreDocument::createCopy(
         ScoreDocument^  src)
 {
     ScoreDocument^  dst = gcnew ScoreDocument;
-    dst->m_ptrObj->copyFrom(*(src->m_ptrObj));
     return ( dst );
 }
 
@@ -344,15 +269,7 @@ ScoreDocument::makeDigitsList(
         WinningRateList^    rateList,
         NumOfDigitsList^%   digitsList)
 {
-    WrapTarget::WinningRateList workRate;
-    WrapTarget::NumOfDigitsList workDigits;
-
-    copyManageArray1ToUnmanageVector(rateList, workRate);
-    const   NumOfDigits
-        retVal  = WrapTarget::makeDigitsList(workRate, workDigits);
-    digitsList  = toManageFromVector(workDigits);
-
-    return ( retVal );
+    return ( 3 );
 }
 
 //----------------------------------------------------------------
@@ -364,15 +281,7 @@ ScoreDocument::makeDigitsTable(
         WinningRateTable^   rateTable,
         NumOfDigitsTable^%  digitsTable)
 {
-    WrapTarget::WinningRateTable    workRate;
-    WrapTarget::NumOfDigitsTable    workDigits;
-
-    copyManageArray2ToUnmanageTable(rateTable, workRate);
-    const   NumOfDigits
-        retVal  = WrapTarget::makeDigitsTable(workRate, workDigits);
-    digitsTable = toManageFromTable(workDigits);
-
-    return ( retVal );
+    return ( r3 );
 }
 
 //========================================================================
@@ -388,16 +297,14 @@ ScoreDocument::GameResult^
 ScoreDocument::getGameRecord(
         const  RecordIndex  idxRecord)
 {
-    const   Score4Core::Common::GameResult
-        & umRecord  = this->m_ptrObj->getGameRecord(idxRecord);
     Common::GameResult^  managedRecord  = gcnew Common::GameResult;
 
-    managedRecord->eGameFlags   = static_cast<RecordFlag>(umRecord.eGameFlags);
-    managedRecord->recordDate   = getDateTime(umRecord.recordDate);
-    managedRecord->awayTeam     = umRecord.visitorTeam;
-    managedRecord->homeTeam     = umRecord.homeTeam;
-    managedRecord->awayScore    = umRecord.visitorScore;
-    managedRecord->homeScore    = umRecord.homeScore;
+    managedRecord->eGameFlags   = RecordFlag::GAME_RESULT;
+    managedRecord->recordDate   = getDateTime(42430);
+    managedRecord->awayTeam     = 0;
+    managedRecord->homeTeam     = 1;
+    managedRecord->awayScore    = 3;
+    managedRecord->homeScore    = 2;
 
     return ( managedRecord );
 }
@@ -411,21 +318,10 @@ ScoreDocument::setGameRecord(
         const  RecordIndex  idxRecord,
         GameResult^         gameRecord)
 {
-    Score4Core::Common::GameResult  umRecord;
-    Score4Core::ErrCode             retVal;
-
-    const   RecordFlag  flagRec = gameRecord->eGameFlags;
-
-    umRecord.eGameFlags     = static_cast<Score4Core::RecordFlag>(flagRec);
-    umRecord.recordDate     = getDateSerial(gameRecord->recordDate);
-    umRecord.visitorTeam    = gameRecord->awayTeam;
-    umRecord.homeTeam       = gameRecord->homeTeam;
-    umRecord.visitorScore   = gameRecord->awayScore;
-    umRecord.homeScore      = gameRecord->homeScore;
-
-    retVal  = this->m_ptrObj->setGameRecord(idxRecord, umRecord);
-    return ( static_cast<ErrCode>(retVal) );
+    return ( ErrCode::ERR_SUCCESS );
 }
+
+#if 0
 
 //----------------------------------------------------------------
 //    ネイティブのインスタンスを取得する。
@@ -447,6 +343,8 @@ ScoreDocument::toNativePointer()
     return ( (this->m_ptrObj) );
 }
 
+#endif
+
 //----------------------------------------------------------------
 //    登録されているリーグ数を取得する。
 //
@@ -454,7 +352,7 @@ ScoreDocument::toNativePointer()
 LeagueIndex
 ScoreDocument::getNumLeagues()
 {
-    return ( this->m_ptrObj->getNumLeagues() );
+    return ( 2 );
 }
 
 //----------------------------------------------------------------
@@ -464,7 +362,7 @@ ScoreDocument::getNumLeagues()
 RecordIndex
 ScoreDocument::getNumRecords()
 {
-    return ( this->m_ptrObj->getNumRecords() );
+    return ( 10 );
 }
 
 //----------------------------------------------------------------
@@ -474,7 +372,7 @@ ScoreDocument::getNumRecords()
 TeamIndex
 ScoreDocument::getNumTeams()
 {
-    return ( this->m_ptrObj->getNumTeams() );
+    return ( 12 );
 }
 
 //----------------------------------------------------------------
@@ -484,8 +382,7 @@ ScoreDocument::getNumTeams()
 System::Boolean
 ScoreDocument::getOptimizedFlag()
 {
-    Score4Core::Boolean retVal  = this->m_ptrObj->getOptimizedFlag();
-    return ( retVal != Score4Core::BOOL_FALSE );
+    return ( false );
 }
 
 //========================================================================
@@ -500,14 +397,13 @@ ScoreDocument::getOptimizedFlag()
 System::DateTime^
 ScoreDocument::lastActiveDate::get()
 {
-    return ( getDateTime(this->m_ptrObj->getLastActiveDate()) );
+    return  getDateTime(42430);
 }
 
 void
 ScoreDocument::lastActiveDate::set(
         System::DateTime^  dtVal)
 {
-    this->m_ptrObj->setLastActiveDate(getDateSerial(dtVal));
 }
 
 //----------------------------------------------------------------
@@ -517,14 +413,13 @@ ScoreDocument::lastActiveDate::set(
 System::DateTime^
 ScoreDocument::lastImportDate::get()
 {
-    return ( getDateTime(this->m_ptrObj->getLastImportDate()) );
+    return  getDateTime(42430);
 }
 
 void
 ScoreDocument::lastImportDate::set(
         System::DateTime^  dtVal)
 {
-    this->m_ptrObj->setLastImportDate(getDateSerial(dtVal));
 }
 
 //----------------------------------------------------------------
@@ -534,14 +429,13 @@ ScoreDocument::lastImportDate::set(
 System::DateTime^
 ScoreDocument::lastRecordDate::get()
 {
-    return ( getDateTime(this->m_ptrObj->getLastRecordDate()) );
+    return  getDateTime(42430);
 }
 
 void
 ScoreDocument::lastRecordDate::set(
         System::DateTime^  dtVal)
 {
-    this->m_ptrObj->setLastRecordDate(getDateSerial(dtVal));
 }
 
 //----------------------------------------------------------------
@@ -550,13 +444,10 @@ Common::LeagueInfo^
 ScoreDocument::leagueInfo::get(
         int  idxLeague)
 {
-    const  WrapTarget::LeagueInfo  &
-        leagueInfo  = this->m_ptrObj->getLeagueInfo(idxLeague);
-
     LeagueInfo^     retVal  = gcnew LeagueInfo;
 
-    retVal->leagueName  = marshal_as<System::String^>(leagueInfo.leagueName);
-    retVal->numPlayOff  = leagueInfo.numPlayOff;
+    retVal->leagueName  = "League A";
+    retVal->numPlayOff  = 3;
 
     return ( retVal );
 }
@@ -565,14 +456,6 @@ void
 ScoreDocument::leagueInfo::set(
         int  idxLeague,  LeagueInfo^  leagueInfo)
 {
-    WrapTarget::LeagueInfo  natvVal;
-
-    System::String^     leagueName  = leagueInfo->leagueName;
-
-    natvVal.leagueName  = marshal_as<std::string>(leagueName);
-    natvVal.numPlayOff  = leagueInfo->numPlayOff;
-
-    this->m_ptrObj->setLeagueInfo(idxLeague, natvVal);
 }
 
 //----------------------------------------------------------------
@@ -585,13 +468,10 @@ Common::TeamInfo^
 ScoreDocument::teamInfo::get(
         int  idxTeam)
 {
-    const  WrapTarget::TeamInfo  &
-        teamInfo    = this->m_ptrObj->getTeamInfo(idxTeam);
-
     TeamInfo^   retVal  = gcnew TeamInfo;
 
-    retVal->leagueID    = teamInfo.leagueID;
-    retVal->teamName    = marshal_as<System::String^>(teamInfo.teamName);
+    retVal->leagueID    = (idxTeam / 6);
+    retVal->teamName    = "Team Dummy";
 
     return ( retVal );
 }
@@ -600,14 +480,6 @@ void
 ScoreDocument::teamInfo::set(
         int  idxTeam,  TeamInfo^  teamInfo)
 {
-    WrapTarget::TeamInfo    natvVal;
-
-    System::String^     teamName    = teamInfo->teamName;
-
-    natvVal.leagueID    = teamInfo->leagueID;
-    natvVal.teamName    = marshal_as<std::string>(teamName);
-
-    this->m_ptrObj->setTeamInfo(idxTeam, natvVal);
 }
 
 //========================================================================
