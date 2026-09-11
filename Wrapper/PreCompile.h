@@ -21,10 +21,9 @@
 #pragma once
 
 #if !defined( BASEBALLSCORE_PCH_INCLUDED_PRE_COMPILE_H )
-#    include    "BaseballScore/Pch/PreCompile.h"
+#    define   BASEBALLSCORE_PCH_INCLUDED_PRE_COMPILE_H
 #endif
 
 #if !defined( BASEBALLSCORE_SYS_INCLUDED_WINDOWS_H )
-#    include    <windows.h>
 #    define   BASEBALLSCORE_SYS_INCLUDED_WINDOWS_H
 #endif

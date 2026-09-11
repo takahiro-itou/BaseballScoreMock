@@ -29,6 +29,8 @@ namespace  Score4Wrapper  {
 //    Support Functions.
 //
 
+#if 0
+
 //----------------------------------------------------------------
 /**   アンマネージ型静的配列をマネージ型配列に変換する。
 **
@@ -211,5 +213,7 @@ copyManageArray2ToUnmanageTable(
     }
     return;
 }
+
+#endif
 
 }   //  End of namespace  Score4Wrapper

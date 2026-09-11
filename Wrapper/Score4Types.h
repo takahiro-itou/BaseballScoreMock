@@ -32,14 +32,16 @@ namespace  Score4Wrapper  {
 
 public enum  class  ErrCode
 {
-    ERR_SUCCESS             = Score4Core::ERR_SUCCESS,
-    ERR_FAILURE             = Score4Core::ERR_FAILURE,
-    ERR_FILE_OPEN_ERROR     = Score4Core::ERR_FILE_OPEN_ERROR,
-    ERR_FILE_IO_ERROR       = Score4Core::ERR_FILE_IO_ERROR,
-    ERR_INDEX_OUT_OF_RANGE  = Score4Core::ERR_INDEX_OUT_OF_RANGE
+    ERR_SUCCESS,
+    ERR_FAILURE,
+    ERR_FILE_OPEN_ERROR,
+    ERR_FILE_IO_ERROR,
+    ERR_INDEX_OUT_OF_RANGE,
 };
 
-typedef     Score4Core::Boolean         Boolean;
+//  typedef     Score4Core::Boolean         Boolean;
+typedef     System::Boolean             Boolean;
+
 
 //----------------------------------------------------------------
 /**
@@ -48,12 +50,12 @@ typedef     Score4Core::Boolean         Boolean;
 
 public enum  class  RecordFlag
 {
-    GAME_EMPTY          = Score4Core::GAME_EMPTY,
-    GAME_SCHEDULE       = Score4Core::GAME_SCHEDULE,
-    GAME_CANCEL         = Score4Core::GAME_CANCEL,
-    GAME_RESULT         = Score4Core::GAME_RESULT,
-    GAME_REGULAR        = Score4Core::GAME_REGULAR,
-    GAME_NOT_REGULAR    = Score4Core::GAME_NOT_REGULAR
+    GAME_EMPTY,
+    GAME_SCHEDULE,
+    GAME_CANCEL,
+    GAME_RESULT,
+    GAME_REGULAR,
+    GAME_NOT_REGULAR,
 };
 
 //----------------------------------------------------------------
@@ -63,19 +65,19 @@ public enum  class  RecordFlag
 
 public enum  class  GameFilter
 {
-    FILTER_HOME_GAMES   = Score4Core::FILTER_HOME_GAMES,
-    FILTER_AWAY_GAMES   = Score4Core::FILTER_AWAY_GAMES,
-    FILTER_ALL_GAMES    = Score4Core::FILTER_ALL_GAMES,
+    FILTER_HOME_GAMES,
+    FILTER_AWAY_GAMES,
+    FILTER_ALL_GAMES,
 
-    FILTER_SCHEDULE     = Score4Core::FILTER_SCHEDULE,
-    FILTER_SCDL_HOMES   = Score4Core::FILTER_SCDL_HOMES,
-    FILTER_SCDL_AWAYS   = Score4Core::FILTER_SCDL_AWAYS,
-    FILTER_SCDL_ALLS    = Score4Core::FILTER_SCDL_ALLS,
+    FILTER_SCHEDULE,
+    FILTER_SCDL_HOMES,
+    FILTER_SCDL_AWAYS,
+    FILTER_SCDL_ALLS,
 
-    FILTER_GAMES_FIRST  = Score4Core::FILTER_GAMES_FIRST,
-    FILTER_GAMES_END    = Score4Core::FILTER_GAMES_END,
-    FILTER_SCDL_FIRST   = Score4Core::FILTER_SCDL_FIRST,
-    FILTER_SCDL_END     = Score4Core::FILTER_SCDL_END
+    FILTER_GAMES_FIRST,
+    FILTER_GAMES_END,
+    FILTER_SCDL_FIRST,
+    FILTER_SCDL_END,
 };
 
 //----------------------------------------------------------------
@@ -85,12 +87,12 @@ public enum  class  GameFilter
 
 public enum  class  MagicFilter
 {
-    MF_DIFFERENT_LEAGUE     = Score4Core::MF_DIFFERENT_LEAGUE,
-    MF_ON_MAGIC             = Score4Core::MF_ON_MAGIC,
-    MF_MAGIC_IF_RIVAL_LOSE  = Score4Core::MF_MAGIC_IF_RIVAL_LOSE,
-    MF_BEAT_IF_WIN_DIRECT   = Score4Core::MF_BEAT_IF_WIN_DIRECT,
-    MF_CANNOT_BEAT_BY_SELF  = Score4Core::MF_CANNOT_BEAT_BY_SELF,
-    MF_NEVER_BEAT           = Score4Core::MF_NEVER_BEAT
+    MF_DIFFERENT_LEAGUE,
+    MF_ON_MAGIC,
+    MF_MAGIC_IF_RIVAL_LOSE,
+    MF_BEAT_IF_WIN_DIRECT,
+    MF_CANNOT_BEAT_BY_SELF,
+    MF_NEVER_BEAT,
 };
 
 //----------------------------------------------------------------
@@ -100,19 +102,20 @@ public enum  class  MagicFilter
 
 public enum  class  MagicNumberMode
 {
-    MAGIC_VICTORY       = Score4Core::MAGIC_VICTORY,
-    MAGIC_PLAYOFF       = Score4Core::MAGIC_PLAYOFF,
-    NUM_MAGIC_MODES     = Score4Core::NUM_MAGIC_MODES
+    MAGIC_VICTORY,
+    MAGIC_PLAYOFF,
+    NUM_MAGIC_MODES,
 };
 
 public enum  class  MagicInfoFlags
 {
-    MIF_WINS_DIFF       = Score4Core::MIF_WINS_DIFF,
-    MIF_ON_MAGIC        = Score4Core::MIF_ON_MAGIC
+    MIF_WINS_DIFF,
+    MIF_ON_MAGIC,
 };
 
 //========================================================================
 
+#if 0
 typedef     Score4Core::DateSerial      DateSerial;
 typedef     Score4Core::TeamIndex       TeamIndex;
 typedef     Score4Core::LeagueIndex     LeagueIndex;
@@ -122,5 +125,17 @@ typedef     Score4Core::RecordIndex     RecordIndex;
 typedef     Score4Core::ScoreValue      ScoreValue;
 typedef     Score4Core::NumOfDigits     NumOfDigits;
 typedef     Score4Core::FileLength      FileLength;
+#endif
+
+typedef     double      DateSerial;
+typedef     int         TeamIndex;
+typedef     int         LeagueIndex;
+typedef     int         GamesCount;
+typedef     double      WinningRate;
+typedef     int         RecordIndex;
+typedef     int         ScoreValue;
+typedef     int         NumOfDigits;
+typedef     size_t      FileLength;
+
 
 }   //  End of namespace  Score4Wrapper
