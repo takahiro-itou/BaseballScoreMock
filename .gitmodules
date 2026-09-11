@@ -1,0 +1,3 @@
+[submodule "WpfModules"]
+	path = WpfModules
+	url  = ../BaseballScoreWpfHelper.git
