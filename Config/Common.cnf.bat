@@ -1,3 +1,3 @@
 
-set  solution=BaseballScoreView
+set  solution=Mock
 set  config="Debug"
