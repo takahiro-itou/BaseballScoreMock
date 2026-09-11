@@ -35,7 +35,7 @@ namespace  Document  {
 
 namespace  {
 
-using       Score4Core::Common::DateTimeFormat;
+//  using       Score4Core::Common::DateTimeFormat;
 
 inline  System::DateTime^
 getDateTime(
@@ -281,7 +281,7 @@ ScoreDocument::makeDigitsTable(
         WinningRateTable^   rateTable,
         NumOfDigitsTable^%  digitsTable)
 {
-    return ( r3 );
+    return ( 3 );
 }
 
 //========================================================================
