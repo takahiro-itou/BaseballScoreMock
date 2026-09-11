@@ -20,7 +20,7 @@
 
 #pragma     once
 
-#include    "BaseballScore/Document/ScoreDocument.h"
+//  #include    "BaseballScore/Document/ScoreDocument.h"
 
 #include    "Score4Types.h"
 #include    "ScoreInterface.h"
@@ -323,6 +323,7 @@ public:
             const  RecordIndex  idxRecord,
             GameResult^         gameRecord);
 
+#if 0
     //----------------------------------------------------------------
     /**   ネイティブのインスタンスを取得する。
     **
@@ -338,6 +339,7 @@ public:
     **/
     Score4Core::Document::ScoreDocument  *
     toNativePointer();
+#endif
 
     //----------------------------------------------------------------
     /**   登録されているリーグ数を取得する。
@@ -437,6 +439,7 @@ public:
 //
 private:
 
+#if 0
     typedef     Score4Core::Document::ScoreDocument     WrapTarget;
 
     typedef     std::vector<Score4Core::Common::CountedScores>
@@ -445,6 +448,7 @@ private:
     WrapTarget  *                   m_ptrObj;
 
     WrapCountedScoreList  *         m_ptrBuf;
+#endif
 
     DateSerial                      m_trgDate;
 
