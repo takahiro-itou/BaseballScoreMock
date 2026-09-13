@@ -321,6 +321,34 @@ ScoreDocument::setGameRecord(
     return ( ErrCode::ERR_SUCCESS );
 }
 
+//----------------------------------------------------------------
+//    リーグ情報を取得する。
+//
+
+ScoreDocument::LeagueInfo^
+ScoreDocument::getLeagueInfo(
+        const  LeagueIndex  idxLeague)
+{
+    LeagueInfo^     retVal  = gcnew LeagueInfo(idxLeague);
+
+    retVal->LeagueName  = "League A";
+    retVal->NumPlayOff  = 3;
+
+    return ( retVal );
+}
+
+//----------------------------------------------------------------
+//    リーグ情報を設定する。
+//
+
+ErrCode
+ScoreDocument::setLeagueInfo(
+        const  LeagueIndex  idxLeague,
+        LeagueInfo^         leagueInfo)
+{
+    return ( ErrCode::ERR_SUCCESS );
+}
+
 #if 0
 
 //----------------------------------------------------------------
@@ -385,6 +413,36 @@ ScoreDocument::getOptimizedFlag()
     return ( false );
 }
 
+//----------------------------------------------------------------
+//    チーム情報を取得する。
+//
+
+ScoreDocument::TeamInfo^
+ScoreDocument::getTeamInfo(
+        const   TeamIndex   idxTeam)
+{
+    TeamInfo^   retVal  = gcnew TeamInfo;
+
+    retVal->LeagueID    = (idxTeam / 6);
+    retVal->TeamName    = "Team Dummy";
+
+    return ( retVal );
+
+}
+
+//----------------------------------------------------------------
+//    チーム情報を設定する。
+//
+
+ErrCode
+ScoreDocument::setTeamInfo(
+        const   TeamIndex   idxTeam,
+        TeamInfo^           teamInfo)
+{
+    return ( ErrCode::ERR_SUCCESS );
+}
+
+
 //========================================================================
 //
 //    Properties.
@@ -395,13 +453,13 @@ ScoreDocument::getOptimizedFlag()
 //
 
 System::DateTime^
-ScoreDocument::lastActiveDate::get()
+ScoreDocument::LastActiveDate::get()
 {
     return  getDateTime(42430);
 }
 
 void
-ScoreDocument::lastActiveDate::set(
+ScoreDocument::LastActiveDate::set(
         System::DateTime^  dtVal)
 {
 }
@@ -411,13 +469,13 @@ ScoreDocument::lastActiveDate::set(
 //
 
 System::DateTime^
-ScoreDocument::lastImportDate::get()
+ScoreDocument::LastImportDate::get()
 {
     return  getDateTime(42430);
 }
 
 void
-ScoreDocument::lastImportDate::set(
+ScoreDocument::LastImportDate::set(
         System::DateTime^  dtVal)
 {
 }
@@ -427,60 +485,17 @@ ScoreDocument::lastImportDate::set(
 //
 
 System::DateTime^
-ScoreDocument::lastRecordDate::get()
+ScoreDocument::LastRecordDate::get()
 {
     return  getDateTime(42430);
 }
 
 void
-ScoreDocument::lastRecordDate::set(
+ScoreDocument::LastRecordDate::set(
         System::DateTime^  dtVal)
 {
 }
 
-//----------------------------------------------------------------
-
-Common::LeagueInfo^
-ScoreDocument::leagueInfo::get(
-        int  idxLeague)
-{
-    LeagueInfo^     retVal  = gcnew LeagueInfo(idxLeague);
-
-    retVal->LeagueName  = "League A";
-    retVal->NumPlayOff  = 3;
-
-    return ( retVal );
-}
-
-void
-ScoreDocument::leagueInfo::set(
-        int  idxLeague,  LeagueInfo^  leagueInfo)
-{
-}
-
-//----------------------------------------------------------------
-//    プロパティ  teamInfo
-//
-
-//----------------------------------------------------------------
-
-Common::TeamInfo^
-ScoreDocument::teamInfo::get(
-        int  idxTeam)
-{
-    TeamInfo^   retVal  = gcnew TeamInfo;
-
-    retVal->LeagueID    = (idxTeam / 6);
-    retVal->TeamName    = "Team Dummy";
-
-    return ( retVal );
-}
-
-void
-ScoreDocument::teamInfo::set(
-        int  idxTeam,  TeamInfo^  teamInfo)
-{
-}
 
 //========================================================================
 //

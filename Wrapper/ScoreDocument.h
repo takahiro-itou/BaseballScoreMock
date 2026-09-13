@@ -323,6 +323,23 @@ public:
             const  RecordIndex  idxRecord,
             GameResult^         gameRecord);
 
+    //----------------------------------------------------------------
+    /**   リーグ情報を取得する。
+    **
+    **/
+    LeagueInfo^
+    getLeagueInfo(
+            const  LeagueIndex  idxLeague);
+
+    //----------------------------------------------------------------
+    /**   リーグ情報を設定する。
+    **
+    **/
+    ErrCode
+    setLeagueInfo(
+            const  LeagueIndex  idxLeague,
+            LeagueInfo^         leagueInfo);
+
 #if 0
     //----------------------------------------------------------------
     /**   ネイティブのインスタンスを取得する。
@@ -373,55 +390,111 @@ public:
     System::Boolean
     getOptimizedFlag();
 
+    //----------------------------------------------------------------
+    /**   集計済みの成績情報を取得する。
+    **
+    **/
+    CountedScores^
+    getScoreInfo(
+            const   TeamIndex   idxTeam)
+    {
+        return ( this->m_csiBuf[idxTeam] );
+    }
+
+    //----------------------------------------------------------------
+    /**   チーム情報を取得する。
+    **
+    **/
+    TeamInfo^
+    getTeamInfo(
+            const   TeamIndex   idxTeam);
+
+    //----------------------------------------------------------------
+    /**   チーム情報を設定する。
+    **
+    **/
+    ErrCode
+    setTeamInfo(
+            const   TeamIndex   idxTeam,
+            TeamInfo^           teamInfo);
+
+
 //========================================================================
 //
 //    Properties.
 //
 public:
 
-    property    System::DateTime^   lastActiveDate
+    property    System::DateTime^   LastActiveDate
     {
         System::DateTime^   get();
         void  set(System::DateTime^  dtVal);
     }
 
-    property    System::DateTime^   lastImportDate
+    property    System::DateTime^   LastImportDate
     {
         System::DateTime^  get();
         void  set(System::DateTime^  dtVal);
     }
 
-    property    System::DateTime^   lastRecordDate
+    property    System::DateTime^   LastRecordDate
     {
         System::DateTime^  get();
         void  set(System::DateTime^  dtVal);
     }
 
-    property    LeagueInfo^     leagueInfo[int]
+    //----------------------------------------------------------------
+    /**   プロパティ  LeagueInfos
+    **
+    **    なお C# では、引数付きプロパティを使えないので
+    **  代わりに getLeagueInfo, setLeagueInfo を使うこと
+    **/
+    property    LeagueInfo^     LeagueInfos[int]
     {
-        LeagueInfo^  get(int  idxLeague);
-        void  set(int  idxLeague,  LeagueInfo^  leagueInfo);
+        LeagueInfo^  get(int  idxLeague) {
+            return  this->getLeagueInfo(idxLeague);
+        }
+        void  set(int  idxLeague,  LeagueInfo^  leagueInfo) {
+            this->setLeagueInfo(idxLeague, leagueInfo);
+        }
     }
 
-    property    CountedScores^  scoreInfo[int]
+    //----------------------------------------------------------------
+    /**   プロパティ  ScoreInfos
+    **
+    **    なお C# では、引数付きプロパティを使えないので
+    **  代わりに getScoreInfo を使うこと
+    **/
+    property    CountedScores^  ScoreInfos[int]
     {
         CountedScores^  get(int  idxTeam)  {
             return ( this->m_csiBuf[idxTeam] );
         }
     }
 
-    property    DateSerial  targetLastDate
+    property    DateSerial  TargetLastDate
     {
         DateSerial  get()  {
             return ( this->m_trgDate );
         }
     }
 
-    property    TeamInfo^   teamInfo[int]
+    //----------------------------------------------------------------
+    /**   プロパティ  TeamInfos
+    **
+    **    なお C# では、引数付きプロパティを使えないので
+    **  代わりに getTeamInfo, setTeamInfo を使うこと
+    **/
+    property    TeamInfo^   TeamInfos[int]
     {
-        TeamInfo^  get(int  idxTeam);
-        void  set(int  idxTeam,  TeamInfo^  teamInfo);
+        TeamInfo^  get(int  idxTeam) {
+            return  this->getTeamInfo(idxTeam);
+        }
+        void  set(int  idxTeam,  TeamInfo^  teamInfo) {
+            this->setTeamInfo(idxTeam, teamInfo);
+        }
     }
+
 
 //========================================================================
 //
