@@ -299,12 +299,12 @@ ScoreDocument::getGameRecord(
 {
     Common::GameResult^  managedRecord  = gcnew Common::GameResult;
 
-    managedRecord->eGameFlags   = RecordFlag::GAME_RESULT;
-    managedRecord->recordDate   = getDateTime(42430);
-    managedRecord->awayTeam     = 0;
-    managedRecord->homeTeam     = 1;
-    managedRecord->awayScore    = 3;
-    managedRecord->homeScore    = 2;
+    managedRecord->GameFlags    = RecordFlag::GAME_RESULT;
+    managedRecord->RecordDate   = getDateTime(42430);
+    managedRecord->AwayTeam     = 0;
+    managedRecord->HomeTeam     = 1;
+    managedRecord->AwayScore    = 3;
+    managedRecord->HomeScore    = 2;
 
     return ( managedRecord );
 }
@@ -444,10 +444,10 @@ Common::LeagueInfo^
 ScoreDocument::leagueInfo::get(
         int  idxLeague)
 {
-    LeagueInfo^     retVal  = gcnew LeagueInfo;
+    LeagueInfo^     retVal  = gcnew LeagueInfo(idxLeague);
 
-    retVal->leagueName  = "League A";
-    retVal->numPlayOff  = 3;
+    retVal->LeagueName  = "League A";
+    retVal->NumPlayOff  = 3;
 
     return ( retVal );
 }
@@ -470,8 +470,8 @@ ScoreDocument::teamInfo::get(
 {
     TeamInfo^   retVal  = gcnew TeamInfo;
 
-    retVal->leagueID    = (idxTeam / 6);
-    retVal->teamName    = "Team Dummy";
+    retVal->LeagueID    = (idxTeam / 6);
+    retVal->TeamName    = "Team Dummy";
 
     return ( retVal );
 }
