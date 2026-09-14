@@ -64,7 +64,7 @@ public enum  class  RecordFlag
 **/
 
 [System::Flags]
-        public enum  class  GameFilter : Sytem::Int32
+        public enum  class  GameFilter : System::Int32
 {
     FILTER_HOME_GAMES,
     FILTER_AWAY_GAMES,
