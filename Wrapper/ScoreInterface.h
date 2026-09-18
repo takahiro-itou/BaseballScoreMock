@@ -25,7 +25,7 @@
 #include    "BaseballScoreTypes.h"
 
 
-namespace  Score4Wrapper  {
+namespace  ScoreWrapper  {
 namespace  Common  {
 
 //========================================================================
@@ -257,6 +257,7 @@ typedef     cli::array<CountedScores^, 1>   CountedScoreList;
 
 }   //  End of namespace  Common
 
+
 //----------------------------------------------------------------
 /**
 **    その他の定数。
@@ -279,18 +280,18 @@ public enum  class  Consts
 **
 **/
 
-Score4Wrapper::Common::WinsForBeatList^
+Common::WinsForBeatList^
 copyToManageType(
-        const  Score4Core::Common::WinsForBeatList &wbSrc);
+        const  CoreCommon::WinsForBeatList &wbSrc);
 
 //----------------------------------------------------------------
 /**   アンマネージ型をマネージ型に変換する。
 **
 **/
 
-Score4Wrapper::Common::MagicInfo^
+Common::MagicInfo^
 copyToManageType(
-        const  Score4Core::Common::MagicInfo  & miSrc);
+        const  CoreCommon::MagicInfo  & miSrc);
 
 //----------------------------------------------------------------
 /**   アンマネージ型をマネージ型に変換する。
@@ -299,9 +300,9 @@ copyToManageType(
 
 ErrCode
 copyToManageType(
-        const  Score4Core::Common::CountedScores  & csSrc,
-        Score4Wrapper::Common::CountedScores      ^ csTrg);
+        const  CoreCommon::CountedScores  & csSrc,
+        Common::CountedScores             ^ csTrg);
 #endif
 
 
-}   //  End of namespace  Score4Wrapper
+}   //  End of namespace  ScoreWrapper

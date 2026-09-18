@@ -23,7 +23,7 @@
 //  #include    "BaseballScore/Common/Score4Types.h"
 
 
-namespace  Score4Wrapper  {
+namespace  ScoreWrapper  {
 
 //----------------------------------------------------------------
 /**
@@ -39,7 +39,6 @@ public enum  class  ErrCode
     ERR_INDEX_OUT_OF_RANGE,
 };
 
-//  typedef     Score4Core::Boolean         Boolean;
 typedef     System::Boolean             Boolean;
 
 
@@ -116,18 +115,6 @@ public enum  class  MagicInfoFlags
 
 //========================================================================
 
-#if 0
-typedef     Score4Core::DateSerial      DateSerial;
-typedef     Score4Core::TeamIndex       TeamIndex;
-typedef     Score4Core::LeagueIndex     LeagueIndex;
-typedef     Score4Core::GamesCount      GamesCount;
-typedef     Score4Core::WinningRate     WinningRate;
-typedef     Score4Core::RecordIndex     RecordIndex;
-typedef     Score4Core::ScoreValue      ScoreValue;
-typedef     Score4Core::NumOfDigits     NumOfDigits;
-typedef     Score4Core::FileLength      FileLength;
-#endif
-
 typedef     double      DateSerial;
 typedef     int         TeamIndex;
 typedef     int         LeagueIndex;
@@ -139,4 +126,4 @@ typedef     int         NumOfDigits;
 typedef     size_t      FileLength;
 
 
-}   //  End of namespace  Score4Wrapper
+}   //  End of namespace  ScoreWrapper

@@ -25,7 +25,7 @@
 #include    "ConvertManageType.h"
 
 
-namespace  Score4Wrapper  {
+namespace  ScoreWrapper  {
 namespace  Common  {
 
 }   //  End of namespace  Common
@@ -36,19 +36,19 @@ namespace  Common  {
 //    アンマネージ型をマネージ型に変換する。
 //
 
-Score4Wrapper::Common::WinsForBeatList^
+Common::WinsForBeatList^
 copyToManageType(
-        const  Score4Core::Common::WinsForBeatList &wbSrc)
+        const  CoreCommon::WinsForBeatList &wbSrc)
 {
     const  int  num = static_cast<int>(wbSrc.size());
 
-    Score4Wrapper::Common::WinsForBeatList^
-            wbDest  = gcnew Score4Wrapper::Common::WinsForBeatList(num);
+    Common::WinsForBeatList^
+            wbDest  = gcnew Common::WinsForBeatList(num);
 
     for ( int i = 0; i < num; ++ i ) {
-        wbDest[i]   = gcnew Score4Wrapper::Common::NumWinsForBeat;
+        wbDest[i]   = gcnew Common::NumWinsForBeat;
         wbDest[i]->filterType   =
-                static_cast<Score4Wrapper::MagicFilter>(wbSrc[i].filterType);
+                static_cast<ScoreWrapper::MagicFilter>(wbSrc[i].filterType);
         wbDest[i]->numNeedWins  = wbSrc[i].numNeedWins;
         wbDest[i]->numRestGame  = wbSrc[i].numRestGame;
         wbDest[i]->numWinsSelf  = wbSrc[i].numWinsSelf;
@@ -63,9 +63,9 @@ copyToManageType(
 **
 **/
 
-Score4Wrapper::Common::MagicInfo^
+Common::MagicInfo^
 copyToManageType(
-        const  Score4Core::Common::MagicInfo  & miSrc)
+        const  CoreCommon::MagicInfo  & miSrc)
 {
     Score4Wrapper::Common::MagicInfo^
             miTrg   = gcnew Score4Wrapper::Common::MagicInfo;
@@ -84,8 +84,8 @@ copyToManageType(
 
 ErrCode
 copyToManageType(
-        const  Score4Core::Common::CountedScores  & csSrc,
-        Score4Wrapper::Common::CountedScores      ^ csTrg)
+        const  CoreCommon::CountedScores  & csSrc,
+        Common::CountedScores             ^ csTrg)
 {
     csTrg->numWons      = copyArrayToManage(csSrc.numWons);
     csTrg->numLost      = copyArrayToManage(csSrc.numLost);
@@ -117,4 +117,4 @@ copyToManageType(
 
 #endif
 
-}   //  End of namespace  Score4Wrapper
+}   //  End of namespace  ScoreWrapper

@@ -26,7 +26,7 @@
 #include    "ScoreDocument.h"
 
 
-namespace  Score4Wrapper  {
+namespace  ScoreWrapper  {
 namespace  Document  {
 
 //========================================================================
@@ -211,7 +211,7 @@ public:
 private:
 
 #if 0
-    typedef     Score4Core::Document::DocumentFile      WrapTarget;
+    typedef     CoreDocument::DocumentFile      WrapTarget;
 
     WrapTarget  *       m_ptrObj;
 #endif
@@ -219,4 +219,4 @@ private:
 };
 
 }   //  End of namespace  Document
-}   //  End of namespace  Score4Wrapper
+}   //  End of namespace  ScoreWrapper

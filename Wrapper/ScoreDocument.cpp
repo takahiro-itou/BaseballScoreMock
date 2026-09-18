@@ -30,7 +30,8 @@
 #include    <msclr/marshal_cppstd.h>
 using       namespace   msclr::interop;
 
-namespace  Score4Wrapper  {
+
+namespace  ScoreWrapper  {
 namespace  Document  {
 
 namespace  {
@@ -507,4 +508,4 @@ ScoreDocument::LastRecordDate::set(
 //
 
 }   //  End of namespace  Document
-}   //  End of namespace  Score4Wrapper
+}   //  End of namespace  ScoreWrapper
