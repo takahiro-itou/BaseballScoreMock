@@ -28,16 +28,10 @@
     <CLRSupport>NetCore</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <UseDebugLibraries>false</UseDebugLibraries>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <UseDebugLibraries>true</UseDebugLibraries>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
   </PropertyGroup>
 
@@ -49,14 +43,6 @@
 
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
   </ImportGroup>
 
   <PropertyGroup Label="UserMacros">
@@ -84,34 +70,12 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <ClInclude Include="..\Wrapper\PreCompile.h" />
-    <ClInclude Include="..\Wrapper\resource.h" />
-    <ClInclude Include="..\Wrapper\DocumentFile.h" />
-    <ClInclude Include="..\Wrapper\Score4Wrapper.h" />
-    <ClInclude Include="..\Wrapper\ScoreDocument.h" />
-    <ClInclude Include="..\Wrapper\ScoreInterface.h" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ClCompile Include="..\Wrapper\AssemblyInfo.cpp" />
     <ClCompile Include="..\Wrapper\PreCompile.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\Wrapper\DocumentFile.cpp" />
-    <ClCompile Include="..\Wrapper\Score4Wrapper.cpp" />
-    <ClCompile Include="..\Wrapper\ScoreDocument.cpp" />
-    <ClCompile Include="..\Wrapper\ScoreInterface.cpp" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Text Include="..\Wrapper\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\Wrapper\app.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Wrapper\app.ico" />
-  </ItemGroup>
+  <Import Project="$(MSBuildThisFileDirectory)Targets.props" />
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
