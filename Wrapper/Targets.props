@@ -5,7 +5,6 @@
     <ClInclude Include="..\Wrapper\PreCompile.h" />
     <ClInclude Include="..\Wrapper\resource.h" />
     <ClInclude Include="..\Wrapper\DocumentFile.h" />
-    <ClInclude Include="..\Wrapper\Score4Wrapper.h" />
     <ClInclude Include="..\Wrapper\ScoreDocument.h" />
     <ClInclude Include="..\Wrapper\ScoreInterface.h" />
   </ItemGroup>
@@ -13,7 +12,6 @@
   <ItemGroup>
     <ClCompile Include="..\Wrapper\AssemblyInfo.cpp" />
     <ClCompile Include="..\Wrapper\DocumentFile.cpp" />
-    <ClCompile Include="..\Wrapper\Score4Wrapper.cpp" />
     <ClCompile Include="..\Wrapper\ScoreDocument.cpp" />
     <ClCompile Include="..\Wrapper\ScoreInterface.cpp" />
   </ItemGroup>
